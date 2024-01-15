@@ -42,4 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function quiz()
+    {
+        return $this->hasOne(Quiz::class);
+    }
+
+    public function bot()
+    {
+        return $this->hasOne(Bot::class);
+    }
 }

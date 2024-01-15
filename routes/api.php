@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/user', 'UserController@index');
+
+Route::group(['prefix' => 'bots'],function () {
+   Route::get('/', 'BotController@index');
+   Route::post('/create', 'BotController@create');
+   Route::post('/update', 'BotController@update');
+   Route::post('/delete', 'BotController@delete');
+});
