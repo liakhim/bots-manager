@@ -43,13 +43,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function quiz()
+    public function quizzes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasOne(Quiz::class);
-    }
-
-    public function bot()
-    {
-        return $this->hasOne(Bot::class);
+        return $this->hasMany(Quiz::class);
     }
 }
