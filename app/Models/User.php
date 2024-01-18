@@ -47,4 +47,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Quiz::class);
     }
+
+    public function bots(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Bot::class);
+    }
+
+    public function rewards(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Reward::class);
+    }
 }
