@@ -43,6 +43,14 @@ class User extends Authenticatable
     }
 
     /**
+     * @return HasMany
+     */
+    public function channels(): HasMany
+    {
+        return $this->hasMany(Channel::class);
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>

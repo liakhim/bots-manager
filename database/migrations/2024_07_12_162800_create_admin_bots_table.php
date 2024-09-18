@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('channels', function (Blueprint $table) {
+        Schema::create('admin_bots', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id')->nullable();
+            $table->integer('channel_id')->nullable();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('type')->nullable();
-            $table->integer('admin_bot_id')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->string('token')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('channels');
+        Schema::dropIfExists('admin_bots');
     }
 };

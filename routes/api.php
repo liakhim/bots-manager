@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Project;
-use App\Models\User;
+use App\Http\Controllers\API\V1\YandexMusicController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +18,15 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::prefix("projects")->middleware('auth:sanctum')->namespace("App\Http\Controllers\API\V1")->group(function() {
+Route::prefix("projects")->namespace("App\Http\Controllers\API\V1")->group(function() {
     Route::get("/", "ProjectsController@index");
+    Route::post("/", "ProjectsController@create");
+    Route::delete("/{project_id}", "ProjectsController@delete");
 });
 
+Route::prefix("pdf")->namespace("App\Http\Controllers\API\V1")->group(function() {
+    Route::get("/", "PdfController@view");
+});
+
+Route::get('/yandex-music/{art}', [YandexMusicController::class, 'searchArtist']);
+Route::get('/yandex-music/tracks/{id}', [YandexMusicController::class, 'getArtistTracks']);
