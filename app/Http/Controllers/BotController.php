@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\TelegramService;
 use Illuminate\Http\Request;
 
 class BotController extends Controller
@@ -9,9 +10,21 @@ class BotController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function webhookHandler(Request $request)
     {
-        //
+        $data = json_encode($request->all());
+
+        $telegram = new TelegramService();
+        $response = $telegram->sendMessage(
+            env('TELEGRAM_LOGS_CHAT_ID'),
+            $data
+        );
+
+        if ($response) {
+            return response()->json(['status' => 'ok' ]);
+        }
+
+        return response()->json(['status' => 'error' ]);
     }
 
     /**

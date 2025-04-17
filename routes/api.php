@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BotController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,8 +26,9 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::group(['prefix' => 'bots'], function () {
-   Route::get('/', 'BotController@index');
+   Route::post('/', [BotController::class, 'webhookHandler']);
    Route::post('/create', 'BotController@create');
    Route::post('/update', 'BotController@update');
    Route::post('/delete', 'BotController@delete');
 });
+
