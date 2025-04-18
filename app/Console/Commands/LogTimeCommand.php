@@ -12,8 +12,8 @@ class LogTimeCommand extends Command
 
     public function handle()
     {
-        $telegram = new TelegramService();
-        $telegram->sendMessage(env('TELEGRAM_LOGS_CHAT_ID'), 'Current time: ' . now()->toDateTimeString());
+        $telegram = new TelegramService(env('TELEGRAM_LOGS_BOT_TOKEN'), env('TELEGRAM_LOGS_CHAT_ID'));
+        $telegram->sendMessage('Current time: ' . now()->toDateTimeString());
         $this->info('Time logged successfully!');
     }
 }

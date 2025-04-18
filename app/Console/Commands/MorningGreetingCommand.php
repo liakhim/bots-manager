@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Services\TelegramService;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class MorningGreetingCommand extends Command
 {
@@ -26,8 +27,9 @@ class MorningGreetingCommand extends Command
      */
     public function handle()
     {
-        $telegram = new TelegramService();
-        $start_message = "
+        try {
+            $telegram = new TelegramService('7702828915:AAFXDdjc4urnXR1LdYVLLyhEP7t3GvXf3Lw', env('TELEGRAM_LOGS_CHAT_ID'));
+            $start_message = "
 Привет, {user_name}! 😊
 
 Не забудь отправить сегодняшнее фото! 📸✨
@@ -35,7 +37,11 @@ class MorningGreetingCommand extends Command
 
 Напоминаю: загружай фото каждый день примерно в одно время. Буду ждать твой сегодняшний снимок! ❤️
 ";
-        $telegram->sendMessage(env('TELEGRAM_LOGS_CHAT_ID'), $start_message);
+            $telegram->sendMessage($start_message);
+        } catch (\Exception $e) {
+            $data = json_encode($e->getTraceAsString());
+            isset($telegram) ? $telegram->sendMessage($data) : Log::error(json_encode($e->getTraceAsString())) ;
+        }
         $this->info('Time logged successfully!');
     }
 }

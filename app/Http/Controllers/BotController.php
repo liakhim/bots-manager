@@ -14,7 +14,7 @@ class BotController extends Controller
     {
         $data = json_encode($request->all());
 
-        $telegram = new TelegramService();
+        $telegram = new TelegramService(env('TELEGRAM_LOGS_BOT_TOKEN'), env('TELEGRAM_LOGS_CHAT_ID'));
         $response = $telegram->sendMessage(
             env('TELEGRAM_LOGS_CHAT_ID'),
             $data
