@@ -14,8 +14,26 @@ class BotController extends Controller
     {
         $data = json_encode($request->all());
 
+        $keyboard = [[
+            [
+                'text' => 'Landing',
+                'web_app' => [
+                    'url' => 'https://bots-manager.ru' // замените на свою ссылку
+                ]
+            ]
+        ]];
+
+        $reply_markup = json_encode([
+            'keyboard' => $keyboard,
+            'resize_keyboard' => true,
+            'one_time_keyboard' => true
+        ]);
+
+        if ($request->all()["message"]["text"] == "/start") {
+            $data = 'Нажми на кнопку "Landing" чтобы открыть Web App.';
+        }
         $telegram = new TelegramService(env('TELEGRAM_LOGS_BOT_TOKEN'), env('TELEGRAM_LOGS_CHAT_ID'));
-        $response = $telegram->sendMessage($data);
+        $response = $telegram->sendMessage($data, $reply_markup);
 
         if ($response) {
             return response()->json(['status' => 'ok' ]);

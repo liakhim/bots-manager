@@ -21,19 +21,14 @@ class TelegramService
         ]);
     }
 
-    public function sendMessage($message)
+    public function sendMessage($message, $reply_markup = null)
     {
-        $keyboard = [['1', '2', '3', '4', '5']];
         try {
             $response = $this->client->post('sendMessage', [
                 'form_params' => [
                     'chat_id' => $this->chatId,
                     'text' => $message,
-                    'reply_markup' => json_encode([
-                        'keyboard' => $keyboard,
-                        'resize_keyboard' => true,
-                        'one_time_keyboard' => true
-                    ])
+                    'reply_markup' => $reply_markup
                 ],
                 'verify' => false
             ]);
