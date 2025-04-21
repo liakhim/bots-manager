@@ -31,9 +31,14 @@ class BotController extends Controller
 
         if ($request->all()["message"]["text"] == "/start") {
             $data = 'Нажми на кнопку "Landing" чтобы открыть Web App.';
+
+            $telegram = new TelegramService('7702828915:AAFXDdjc4urnXR1LdYVLLyhEP7t3GvXf3Lw', env('TELEGRAM_LOGS_CHAT_ID'));
+            $response = $telegram->sendMessage($data, $reply_markup);
+        } else {
+            $telegram = new TelegramService(env('TELEGRAM_LOGS_BOT_TOKEN'), env('TELEGRAM_LOGS_CHAT_ID'));
+            $response = $telegram->sendMessage($data);
         }
-        $telegram = new TelegramService(env('TELEGRAM_LOGS_BOT_TOKEN'), env('TELEGRAM_LOGS_CHAT_ID'));
-        $response = $telegram->sendMessage($data, $reply_markup);
+
 
         if ($response) {
             return response()->json(['status' => 'ok' ]);
