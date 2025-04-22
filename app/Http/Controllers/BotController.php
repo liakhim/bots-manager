@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\TelegramService;
 use Illuminate\Http\Request;
 
@@ -29,8 +30,22 @@ class BotController extends Controller
             'one_time_keyboard' => true
         ]);
 
-        if ($request->all()["message"]["text"] == "/start") {
-            $data = 'Нажми на кнопку "Landing" чтобы открыть Web App.';
+        if ($request->all()["message"]["text"] == "/about") {
+            $user = User::where('chat_id', $request->all()["message"]["chat"]["id"])->first();
+            if (!$user) {
+                User::create([
+                    'name' => $request->all()["message"]["chat"]["first_name"],
+                    'tg_username' => $request->all()["message"]["chat"]["username"],
+                    'is_bot' => $request->all()["message"]["chat"]["is_bot"],
+                    'language_code' => $request->all()["message"]["chat"]["language_code"],
+                    'is_premium' => $request->all()["message"]["chat"]["is_premium"],
+                    'chat_id' => $request->all()["message"]["chat"]["id"],
+                ]);
+            }
+        }
+
+        if ($request->all()["message"]["text"] == "/about") {
+            $data = 'Нажми на кнопку "О нас" чтобы открыть страницу с информацией';
 
             $telegram = new TelegramService('7702828915:AAFXDdjc4urnXR1LdYVLLyhEP7t3GvXf3Lw', env('TELEGRAM_LOGS_CHAT_ID'));
             $response = $telegram->sendMessage($data, $reply_markup);

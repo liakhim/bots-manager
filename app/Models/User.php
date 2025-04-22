@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -43,18 +43,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function quizzes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function bots(): HasMany
     {
-        return $this->hasMany(Quiz::class);
-    }
-
-    public function bots(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Bot::class);
-    }
-
-    public function rewards(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Reward::class);
+        return $this->hasMany(UserUpdates::class);
     }
 }
