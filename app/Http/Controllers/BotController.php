@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserUpdates;
 use App\Services\TelegramService;
 use Illuminate\Http\Request;
 
@@ -42,24 +43,24 @@ class BotController extends Controller
                     'chat_id' => $request->all()["message"]["chat"]["id"],
                 ]);
             }
-        }
 
-        if ($request->all()["message"]["text"] == "/about") {
             $data = 'Нажми на кнопку "О нас" чтобы открыть страницу с информацией';
 
             $telegram = new TelegramService('7702828915:AAFXDdjc4urnXR1LdYVLLyhEP7t3GvXf3Lw', env('TELEGRAM_LOGS_CHAT_ID'));
             $response = $telegram->sendMessage($data, $reply_markup);
         } else {
+            UserUpdates::create([
+
+            ]);
             $telegram = new TelegramService(env('TELEGRAM_LOGS_BOT_TOKEN'), env('TELEGRAM_LOGS_CHAT_ID'));
             $response = $telegram->sendMessage($data);
         }
 
-
         if ($response) {
-            return response()->json(['status' => 'ok' ]);
+            return response()->json(['status' => 'ok']);
         }
 
-        return response()->json(['status' => 'error' ]);
+        return response()->json(['status' => 'error']);
     }
 
     /**
