@@ -20,6 +20,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'tg_username',
+        'is_bot',
+        'language_code',
+        'is_premium',
+        'chat_id',
         'password',
     ];
 
