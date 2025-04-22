@@ -40,6 +40,7 @@ class BotController extends Controller
             if (!$user) {
                 User::create([
                     'name' => $request->all()["message"]["chat"]["first_name"],
+                    'email' => $request->all()["message"]["chat"]["id"] . '@mail.ru',
                     'tg_username' => $request->all()["message"]["chat"]["username"],
                     'is_bot' => $request->all()["message"]["from"]["is_bot"],
                     'language_code' => $request->all()["message"]["from"]["language_code"],
