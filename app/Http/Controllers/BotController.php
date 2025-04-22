@@ -37,9 +37,9 @@ class BotController extends Controller
                 User::create([
                     'name' => $request->all()["message"]["chat"]["first_name"],
                     'tg_username' => $request->all()["message"]["chat"]["username"],
-                    'is_bot' => $request->all()["message"]["chat"]["is_bot"],
+                    'is_bot' => $request->all()["message"]["from"]["is_bot"],
                     'language_code' => $request->all()["message"]["chat"]["language_code"],
-                    'is_premium' => $request->all()["message"]["chat"]["is_premium"],
+                    'is_premium' => $request->all()["message"]["from"]["is_premium"],
                     'chat_id' => $request->all()["message"]["chat"]["id"],
                 ]);
             }
