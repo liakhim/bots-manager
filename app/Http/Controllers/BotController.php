@@ -55,9 +55,9 @@ class BotController extends Controller
             $telegram = new TelegramService('7702828915:AAFXDdjc4urnXR1LdYVLLyhEP7t3GvXf3Lw', env('TELEGRAM_LOGS_CHAT_ID'));
             $response = $telegram->sendMessage($data, $reply_markup);
         } else {
-            UserUpdates::create([
-
-            ]);
+//            UserUpdates::create([
+//
+//            ]);
             $telegram = new TelegramService(env('TELEGRAM_LOGS_BOT_TOKEN'), env('TELEGRAM_LOGS_CHAT_ID'));
             $response = $telegram->sendMessage($data);
         }
