@@ -18,7 +18,7 @@ class BotController extends Controller
             [
                 'text' => 'Landing',
                 'web_app' => [
-                    'url' => 'https://bots-manager.ru' // замените на свою ссылку
+                    'url' => 'https://bots-manager.ru?token=qddderfwsasdedec' // замените на свою ссылку
                 ]
             ]
         ]];
