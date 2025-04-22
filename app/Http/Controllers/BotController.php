@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\UserUpdates;
 use App\Services\TelegramService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class BotController extends Controller
 {
@@ -30,6 +31,9 @@ class BotController extends Controller
             'resize_keyboard' => true,
             'one_time_keyboard' => true
         ]);
+
+        Log::info('----------');
+        Log::info(json_encode($request->all()));
 
         if ($request->all()["message"]["text"] == "/about") {
             $user = User::where('chat_id', $request->all()["message"]["chat"]["id"])->first();
