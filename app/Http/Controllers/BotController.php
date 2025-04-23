@@ -35,7 +35,7 @@ class BotController extends Controller
         Log::info('----------');
         Log::info(json_encode($request->all()));
 
-        if ($request->all()["message"]["text"] == "/about") {
+        if (array_key_exists('text', $request->all()) && $request->all()["message"]["text"] == "/about") {
             $user = User::where('chat_id', $request->all()["message"]["chat"]["id"])->first();
             if (!$user) {
                 User::create([
@@ -55,9 +55,6 @@ class BotController extends Controller
             $telegram = new TelegramService('7702828915:AAFXDdjc4urnXR1LdYVLLyhEP7t3GvXf3Lw', env('TELEGRAM_LOGS_CHAT_ID'));
             $response = $telegram->sendMessage($data, $reply_markup);
         } else {
-//            UserUpdates::create([
-//
-//            ]);
             $telegram = new TelegramService(env('TELEGRAM_LOGS_BOT_TOKEN'), env('TELEGRAM_LOGS_CHAT_ID'));
             $response = $telegram->sendMessage($data);
         }
