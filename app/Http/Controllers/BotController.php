@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DTO\User\UserCreateDto;
+use App\Models\DTO\User\UserUpdateObjCreateDto;
 use App\Models\User;
 use App\Models\UserUpdates;
 use App\Services\TelegramService;
+use App\Services\UserCreateService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 
 class BotController extends Controller
@@ -16,6 +20,27 @@ class BotController extends Controller
     public function webhookHandler(Request $request)
     {
         $data = json_encode($request->all());
+
+        $chatId = Arr::get($request->all(), 'message.chat.id');
+        $user = User::firstOrNew(['chat_id' => $chatId]);
+        if (!$user) {
+            $userData = new UserCreateDto(
+                name: Arr::get($request->all(), 'message.chat.first_name'),
+                tg_username: Arr::get($request->all(), 'message.chat.username'),
+                is_bot: Arr::get($request->all(), 'message.from.is_bot', false),
+                language_code: Arr::get($request->all(), 'message.from.language_code'),
+                is_premium: Arr::get($request->all(), 'message.from.is_premium', false),
+                chat_id: $chatId
+            );
+            $userUpdateData = new UserUpdateObjCreateDto(
+                user_id: $user->user_id,
+                update_id: Arr::get($request->all(), 'message.update_id'),
+                data: Arr::get($request->all(), 'message'),
+                data_type: Arr::get($request->all(), 'message.photo') ? 'photo' : 'text',
+                date: Arr::get($request->all(), 'message.date'),
+            );
+            $user = (new UserCreateService($userData, $userUpdateData))->run();
+        }
 
         $keyboard = [[
             [
@@ -33,19 +58,6 @@ class BotController extends Controller
         ]);
 
         if (array_key_exists('text', $request->all()) && $request->all()["message"]["text"] == "/about") {
-            $user = User::where('chat_id', $request->all()["message"]["chat"]["id"])->first();
-            if (!$user) {
-                User::create([
-                    'name' => $request->all()["message"]["chat"]["first_name"],
-                    'email' => $request->all()["message"]["chat"]["id"] . '@mail.ru',
-                    'password' => '123456`',
-                    'tg_username' => $request->all()["message"]["chat"]["username"],
-                    'is_bot' => $request->all()["message"]["from"]["is_bot"],
-                    'language_code' => $request->all()["message"]["from"]["language_code"],
-                    'is_premium' => $request->all()["message"]["from"]["is_premium"],
-                    'chat_id' => $request->all()["message"]["chat"]["id"],
-                ]);
-            }
 
             $data = 'Нажми на кнопку "О нас" чтобы открыть страницу с информацией';
 

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_updates', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('update_id');
+            $table->string('update_id')->nullable();
             $table->json('data');
             $table->string('data_type');
             $table->string('date');
