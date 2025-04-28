@@ -32,9 +32,6 @@ class BotController extends Controller
             'one_time_keyboard' => true
         ]);
 
-        Log::info('----------');
-        Log::info(json_encode($request->all()));
-
         if (array_key_exists('text', $request->all()) && $request->all()["message"]["text"] == "/about") {
             $user = User::where('chat_id', $request->all()["message"]["chat"]["id"])->first();
             if (!$user) {
