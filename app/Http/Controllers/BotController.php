@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\DTO\User\UserCreateDto;
 use App\Models\DTO\User\UserUpdateObjCreateDto;
 use App\Models\User;
-use App\Models\UserUpdates;
 use App\Services\TelegramService;
 use App\Services\UserCreateService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
 
 class BotController extends Controller
 {
@@ -44,9 +42,9 @@ class BotController extends Controller
 
         $keyboard = [[
             [
-                'text' => 'Landing',
+                'text' => 'Что умеет этот бот?',
                 'web_app' => [
-                    'url' => 'https://bots-manager.ru?token=qddderfwsasdedec' // замените на свою ссылку
+                    'url' => 'https://bots-manager.ru'
                 ]
             ]
         ]];
