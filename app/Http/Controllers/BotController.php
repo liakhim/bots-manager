@@ -9,6 +9,7 @@ use App\Services\TelegramService;
 use App\Services\UserCreateService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class BotController extends Controller
 {
@@ -54,6 +55,9 @@ class BotController extends Controller
             'resize_keyboard' => true,
             'one_time_keyboard' => true
         ]);
+
+        Log::info('text');
+        Log::info($request->all()["message"]["text"]);
 
         if (array_key_exists('text', $request->all()) && $request->all()["message"]["text"] === "/about") {
 
