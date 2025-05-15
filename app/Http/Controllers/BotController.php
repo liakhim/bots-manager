@@ -55,7 +55,7 @@ class BotController extends Controller
             'one_time_keyboard' => true
         ]);
 
-        if (array_key_exists('text', $request->all()) && $request->all()["message"]["text"] == "/about") {
+        if (array_key_exists('text', $request->all()) && $request->all()["message"]["text"] === "/about") {
 
             $data = 'Нажми на кнопку "О нас" чтобы открыть страницу с информацией';
 
