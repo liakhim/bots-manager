@@ -45,7 +45,7 @@ class BotController extends Controller
             [
                 'text' => 'Что умеет этот бот?',
                 'web_app' => [
-                    'url' => 'https://bots-manager.ru'
+                    'url' => 'https://bots-manager.ru/about'
                 ]
             ]
         ]];
