@@ -7,6 +7,7 @@ use App\Models\DTO\User\UserUpdateObjCreateDto;
 use App\Models\User;
 use App\Services\TelegramService;
 use App\Services\UserCreateService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
@@ -16,11 +17,12 @@ class BotController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function webhookHandler(Request $request)
+    public function webhookHandler(Request $request): JsonResponse
     {
         $data = json_encode($request->all());
 
         $chatId = Arr::get($request->all(), 'message.chat.id');
+        /* @var User $user */
         $user = User::firstOrNew(['chat_id' => $chatId]);
         if (!$user) {
             $userData = new UserCreateDto(
@@ -40,6 +42,9 @@ class BotController extends Controller
             );
             $user = (new UserCreateService($userData, $userUpdateData))->run();
         }
+
+        Log::info('$user in BotController');
+        Log::info($user);
 
         $keyboard = [[
             [
