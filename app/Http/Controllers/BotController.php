@@ -106,7 +106,7 @@ class BotController extends Controller
                 'inline_keyboard' => $keyboard,
             ]);
 
-            $response = $telegram->sendMessageAsCode('test', $reply_markup);
+            $response = $telegram->sendMessage('test', $reply_markup);
 
         } else {
             $response = $telegram->sendMessageAsCode($data_to_code);
