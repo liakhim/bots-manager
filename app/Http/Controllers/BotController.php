@@ -7,6 +7,7 @@ use App\Models\DTO\User\UserUpdateObjCreateDto;
 use App\Models\User;
 use App\Services\TelegramService;
 use App\Services\UserCreateService;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -86,10 +87,16 @@ class BotController extends Controller
 
     public function everyDayWebhookHandler(Request $request): JsonResponse
     {
-        $data = "```json\n" . json_encode($request->all(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)  . "\n```";
+        $data = $request->all();
+        $data_to_code = "```json\n" . json_encode($request->all(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)  . "\n```";
 
         $telegram = new TelegramService(env('TELEGRAM_EVERY_DAY_BOT'), env('TELEGRAM_EVERY_DAY_CHAT_ID'));
-        $response = $telegram->sendMessageAsCode($data);
+
+        if (key_exists('callback_query', $data) && $data['callback_query']['data'] === 'now') {
+            $response = $telegram->sendMessageAsCode(Carbon::now()->format('F d H:i'));
+        } else {
+            $response = $telegram->sendMessageAsCode($data);
+        }
 
         if ($response) {
             return response()->json(['status' => 'ok']);
