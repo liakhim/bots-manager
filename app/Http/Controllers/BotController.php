@@ -84,6 +84,37 @@ class BotController extends Controller
         return response()->json(['status' => 'error']);
     }
 
+    public function everyDayWebhookHandler(Request $request): JsonResponse
+    {
+        $data = json_encode($request->all());
+
+        $keyboard = [[
+            [
+                'text' => 'Что умеет этот бот?',
+                'web_app' => [
+                    'url' => 'https://bots-manager.ru/about'
+                ]
+            ]
+        ]];
+
+        $reply_markup = json_encode([
+            'keyboard' => $keyboard,
+            'resize_keyboard' => true,
+            'one_time_keyboard' => true
+        ]);
+
+        Log::info('$data');
+        Log::info($data);
+
+        $telegram = new TelegramService(env('TELEGRAM_EVERY_DAY_BOT'), env('TELEGRAM_EVERY_DAY_CHAT_ID'));
+        $response = $telegram->sendMessage($data, $reply_markup);
+
+        if ($response) {
+            return response()->json(['status' => 'ok']);
+        }
+        return response()->json(['status' => 'error']);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
