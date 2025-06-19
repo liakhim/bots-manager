@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\SendTelegramMessage;
+use App\Jobs\SendUserTelegramMessage;
 use App\Models\User;
 use Illuminate\Console\Command;
 
@@ -39,7 +39,7 @@ class MorningGreetingCommand extends Command
 ";
 
         foreach ($users as $user) {
-            SendTelegramMessage::dispatch($user, $message);
+            SendUserTelegramMessage::dispatch($user, $message, '7702828915:AAFXDdjc4urnXR1LdYVLLyhEP7t3GvXf3Lw');
         }
 
         $this->info('Time logged successfully!');
