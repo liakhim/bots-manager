@@ -27,7 +27,7 @@ Route::group(['prefix' => 'user'], function () {
 
 Route::group(['prefix' => 'bots'], function () {
    Route::post('/', [BotController::class, 'webhookHandler']);
-   Route::post('/', [BotController::class, 'everyDayWebhookHandler']);
+   Route::post('/ed', [BotController::class, 'everyDayWebhookHandler']);
    Route::post('/create', 'BotController@create');
    Route::post('/update', 'BotController@update');
    Route::post('/delete', 'BotController@delete');
