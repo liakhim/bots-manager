@@ -103,7 +103,7 @@ class BotController extends Controller
             ]];
 
             $reply_markup = json_encode([
-                'keyboard' => $keyboard,
+                'inline_keyboard' => $keyboard,
             ]);
 
             $response = $telegram->sendMessageAsCode('test', $reply_markup);
