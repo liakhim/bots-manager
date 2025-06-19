@@ -42,4 +42,27 @@ class TelegramService
             return false;
         }
     }
+
+    public function sendMessageAsCode($message, $reply_markup = null)
+    {
+        try {
+            $response = $this->client->post('sendMessage', [
+                'form_params' => [
+                    'chat_id' => $this->chatId,
+                    'text' => $message,
+                    'parse_mode' => 'MarkdownV2',
+                    'reply_markup' => $reply_markup
+                ],
+                'verify' => false
+            ]);
+
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (\Exception $e) {
+            Log::error('Telegram send message error: ' . $e->getMessage());
+            return false;
+        } catch (GuzzleException $e) {
+            Log::error('Telegram send (GuzzleException) message error: ' . $e->getMessage());
+            return false;
+        }
+    }
 }

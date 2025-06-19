@@ -107,7 +107,7 @@ class BotController extends Controller
         Log::info($data);
 
         $telegram = new TelegramService(env('TELEGRAM_EVERY_DAY_BOT'), env('TELEGRAM_EVERY_DAY_CHAT_ID'));
-        $response = $telegram->sendMessage($data, $reply_markup);
+        $response = $telegram->sendMessageAsCode($data, $reply_markup);
 
         if ($response) {
             return response()->json(['status' => 'ok']);
