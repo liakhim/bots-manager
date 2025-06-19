@@ -94,6 +94,24 @@ class BotController extends Controller
 
         if (key_exists('callback_query', $data) && $data['callback_query']['data'] === 'now') {
             $response = $telegram->sendMessageAsCode(Carbon::now()->format('F d H:i'));
+        } else if (key_exists('callback_query', $data) && $data['callback_query']['data'] === 'now') {
+            $keyboard = [[
+                [
+                    'text' => 'Что умеет этот бот?',
+                    'web_app' => [
+                        'url' => 'https://bots-manager.ru/about'
+                    ]
+                ]
+            ]];
+
+            $reply_markup = json_encode([
+                'keyboard' => $keyboard,
+                'resize_keyboard' => true,
+                'one_time_keyboard' => true
+            ]);
+
+            $response = $telegram->sendMessageAsCode('test', $reply_markup);
+
         } else {
             $response = $telegram->sendMessageAsCode($data_to_code);
         }
