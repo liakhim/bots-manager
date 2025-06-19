@@ -94,7 +94,7 @@ class BotController extends Controller
 
         if (key_exists('callback_query', $data) && $data['callback_query']['data'] === 'now') {
             $response = $telegram->sendMessageAsCode(Carbon::now()->format('F d H:i'));
-        } else if (key_exists('callback_query', $data) && $data['callback_query']['data'] === 'now') {
+        } else if (key_exists('callback_query', $data) && $data['callback_query']['data'] === 'delay') {
             $keyboard = [[
                 [
                     'text' => 'Что умеет этот бот?',
