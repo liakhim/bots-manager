@@ -98,7 +98,7 @@ class BotController extends Controller
             $keyboard = [[
                 [
                     'text' => 'Нужно ввести время прихода',
-                    "parse_mode" => "HTML",
+                    "callback_data" => "entering",
                 ]
             ]];
 
