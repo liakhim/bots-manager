@@ -15,7 +15,7 @@ class SendTelegramMessage implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected string $message;
-    protected string $bot_token;
+    private string $botToken;
 
     public function __construct(string $message, string $bot_token)
     {
