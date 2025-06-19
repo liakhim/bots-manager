@@ -88,26 +88,8 @@ class BotController extends Controller
     {
         $data = "```json\n" . json_encode($request->all(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)  . "\n```";
 
-        $keyboard = [[
-            [
-                'text' => 'Что умеет этот бот?',
-                'web_app' => [
-                    'url' => 'https://bots-manager.ru/about'
-                ]
-            ]
-        ]];
-
-        $reply_markup = json_encode([
-            'keyboard' => $keyboard,
-            'resize_keyboard' => true,
-            'one_time_keyboard' => true
-        ]);
-
-        Log::info('$data');
-        Log::info($data);
-
         $telegram = new TelegramService(env('TELEGRAM_EVERY_DAY_BOT'), env('TELEGRAM_EVERY_DAY_CHAT_ID'));
-        $response = $telegram->sendMessageAsCode($data, $reply_markup);
+        $response = $telegram->sendMessageAsCode($data);
 
         if ($response) {
             return response()->json(['status' => 'ok']);

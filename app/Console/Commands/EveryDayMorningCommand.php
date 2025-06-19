@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\SendTelegramMessage;
+use App\Jobs\SendEveryDayTelegramMessage;
 use Illuminate\Console\Command;
 
 class EveryDayMorningCommand extends Command
@@ -30,7 +30,7 @@ class EveryDayMorningCommand extends Command
 Ежедневное сообщение о начале рабочего дня
 ";
 
-        SendTelegramMessage::dispatch($message, env('TELEGRAM_EVERY_DAY_BOT'));
+        SendEveryDayTelegramMessage::dispatch($message, env('TELEGRAM_EVERY_DAY_BOT'));
 
         $this->info('Time logged successfully!');
     }

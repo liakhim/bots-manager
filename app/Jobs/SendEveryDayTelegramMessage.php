@@ -10,7 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class SendTelegramMessage implements ShouldQueue
+class SendEveryDayTelegramMessage implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -25,7 +25,17 @@ class SendTelegramMessage implements ShouldQueue
 
     public function handle(): void
     {
+        $keyboard = [[
+            [
+                'text' => 'Нажми как придёшь'
+            ]
+        ]];
+        $reply_markup = json_encode([
+            'keyboard' => $keyboard,
+            'resize_keyboard' => true,
+            'one_time_keyboard' => true
+        ]);
         $telegram = new TelegramService($this->botToken, env('TELEGRAM_EVERY_DAY_CHAT_ID'));
-        $telegram->sendMessage($this->message);
+        $telegram->sendMessage($this->message, $reply_markup);
     }
 }
