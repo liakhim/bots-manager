@@ -97,17 +97,13 @@ class BotController extends Controller
         } else if (key_exists('callback_query', $data) && $data['callback_query']['data'] === 'delay') {
             $keyboard = [[
                 [
-                    'text' => 'Что умеет этот бот?',
-                    'web_app' => [
-                        'url' => 'https://bots-manager.ru/about'
-                    ]
+                    'text' => 'Нужно ввести время прихода',
+                    "parse_mode" => "HTML",
                 ]
             ]];
 
             $reply_markup = json_encode([
                 'keyboard' => $keyboard,
-                'resize_keyboard' => true,
-                'one_time_keyboard' => true
             ]);
 
             $response = $telegram->sendMessageAsCode('test', $reply_markup);
