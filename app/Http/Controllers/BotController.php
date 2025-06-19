@@ -86,7 +86,7 @@ class BotController extends Controller
 
     public function everyDayWebhookHandler(Request $request): JsonResponse
     {
-        $data = json_encode($request->all());
+        $data = "```" . json_encode($request->all()) . "```";
 
         $keyboard = [[
             [
