@@ -72,10 +72,10 @@ class BotController extends Controller
             $data = 'Нажми на кнопку "О нас" чтобы открыть страницу с информацией';
 
             $telegram = new TelegramService('7702828915:AAFXDdjc4urnXR1LdYVLLyhEP7t3GvXf3Lw', env('TELEGRAM_LOGS_CHAT_ID'));
-            $response = $telegram->sendMessage($data, $reply_markup);
+            $response = $telegram->sendMessageAsCode($data, $reply_markup);
         } else {
             $telegram = new TelegramService(env('TELEGRAM_LOGS_BOT_TOKEN'), env('TELEGRAM_LOGS_CHAT_ID'));
-            $response = $telegram->sendMessage($data);
+            $response = $telegram->sendMessageAsCode($data);
         }
 
         if ($response) {
