@@ -21,7 +21,7 @@ class BotController extends Controller
     public function webhookHandler(Request $request): JsonResponse
     {
         $data = json_encode($request->all());
-
+        $data_to_code = "```json\n" . json_encode($request->all(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)  . "\n```";
         $chatId = Arr::get($request->all(), 'message.chat.id');
         /* @var User $user */
         $user = User::firstOrNew(['chat_id' => $chatId]);
@@ -75,7 +75,7 @@ class BotController extends Controller
             $response = $telegram->sendMessageAsCode($data, $reply_markup);
         } else {
             $telegram = new TelegramService(env('TELEGRAM_LOGS_BOT_TOKEN'), env('TELEGRAM_LOGS_CHAT_ID'));
-            $response = $telegram->sendMessageAsCode($data);
+            $response = $telegram->sendMessageAsCode($data_to_code);
         }
 
         if ($response) {
