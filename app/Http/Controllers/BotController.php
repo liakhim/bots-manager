@@ -20,7 +20,6 @@ class BotController extends Controller
      */
     public function webhookHandler(Request $request): JsonResponse
     {
-        $data = json_encode($request->all());
         $data_to_code = "```json\n" . json_encode($request->all(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)  . "\n```";
         $chatId = Arr::get($request->all(), 'message.chat.id');
         /* @var User $user */
@@ -101,7 +100,7 @@ class BotController extends Controller
                 'inline_keyboard' => $keyboard,
             ]);
 
-            $response = $telegram->sendMessage('test', $reply_markup);
+            $response = $telegram->sendMessage($data_to_code, $reply_markup);
 
         } else {
             $response = $telegram->sendMessageAsCode($data_to_code);
