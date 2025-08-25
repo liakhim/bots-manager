@@ -29,8 +29,10 @@ class MorningGreetingCommand extends Command
     {
         $users = User::all();
 
-        $message = "
-Привет, {user_name}! 😊
+        foreach ($users as $user) {
+
+            $message = "
+Привет, " . $user->name . "! 😊
 
 Не забудьте отправить сегодняшнее фото! 📸✨
 Это займет всего секунду, но так важно для твоего прогресса!
@@ -38,7 +40,6 @@ class MorningGreetingCommand extends Command
 Напоминаем: загружай фото каждый день примерно в одно время. Будем ждать твой сегодняшний снимок! ❤️
 ";
 
-        foreach ($users as $user) {
             SendUserTelegramMessage::dispatch($user, $message, '7702828915:AAFXDdjc4urnXR1LdYVLLyhEP7t3GvXf3Lw');
         }
 
