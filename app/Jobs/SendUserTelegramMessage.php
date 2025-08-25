@@ -16,7 +16,7 @@ class SendUserTelegramMessage implements ShouldQueue
 
     protected User $user;
     protected string $message;
-    protected string $bot_token;
+    private string $botToken;
 
     public function __construct(User $user, string $message, string $bot_token)
     {
