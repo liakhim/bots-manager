@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('log:time')->everyTwoHours();
-        $schedule->command('app:morning-greeting-command')->everyTwoHours();
+        $schedule->command('app:morning-greeting-command')->dailyAt('07:00');
     }
 
     /**
