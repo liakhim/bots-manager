@@ -17,10 +17,16 @@ class B2Word extends Authenticatable
      */
     protected $fillable = [
         'word',
+        'word_translation',
         'meanings',
         'synonyms',
         'antonyms',
         'examples',
         'audio'
     ];
+
+    public function definitions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(B2WordsDefinition::class);
+    }
 }

@@ -67,7 +67,6 @@ class B2WordsSeeder extends Seeder
             'evade', //Обойти
             'purchase', //Приобретать
             'earn', //Зарабатывать
-            'make sure', //Убедиться
             'prototype', //Создать протопит, план
             'endeavour', //Стремиться
             'blend', //Смешивать
@@ -80,13 +79,11 @@ class B2WordsSeeder extends Seeder
             'respond', //Реагировать, отвечать
             'connect', //Соединить
             'command', //Командовать
-            'check-out', //Проверить, оформить
             'extend', //Продлить, расширить, увеличить
             'retain', //Оставить, удержать, сохранить
             'exhibit', //Показывать
             'invent', //Изобретать
             'abridge', //Ограничивать
-            'self-express', //Самовыражаться
             'neglect', //Пренебрегать
             'negotiate', //Договариваться, вести переговоры
             'upgrade', //Повышать, улучшать
@@ -101,7 +98,7 @@ class B2WordsSeeder extends Seeder
             'whistle', //Свистеть
             'suspect', //Подозревать
             'surrender', //Сдаваться
-            'depend on', //Зависеть от
+            'depend', //Зависеть
             'correct', //Исправлять
             'define', //Определить
             'visualize', //Визуализировать

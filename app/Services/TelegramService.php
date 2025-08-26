@@ -43,14 +43,14 @@ class TelegramService
         }
     }
 
-    public function sendMessageAsCode($message, $reply_markup = null)
+    public function sendMessageAsCode($message, $reply_markup = null, $parse_mode = 'MarkdownV2')
     {
         try {
             $response = $this->client->post('sendMessage', [
                 'form_params' => [
                     'chat_id' => $this->chatId,
                     'text' => $message,
-                    'parse_mode' => 'MarkdownV2',
+                    'parse_mode' => $parse_mode,
                     'reply_markup' => $reply_markup
                 ],
                 'verify' => false

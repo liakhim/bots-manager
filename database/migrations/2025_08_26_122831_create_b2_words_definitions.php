@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('b2_words', function (Blueprint $table) {
+        Schema::create('b2_words_definitions', function (Blueprint $table) {
             $table->id();
-            $table->string('word')->nullable(false);
-            $table->string('word_translation')->nullable();
-            $table->json('meanings')->nullable();
-            $table->json('audio')->nullable();
+            $table->string('b2_word_id');
+            $table->string('body')->nullable();
+            $table->text('body_translation')->nullable();
+            $table->string('example')->nullable();
+            $table->text('example_translation')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('b2_words');
+        Schema::dropIfExists('b2_words_definitions');
     }
 };
