@@ -43,9 +43,6 @@ class BotController extends Controller
             $user = (new UserCreateService($userData, $userUpdateData))->run();
         }
 
-        Log::info('$user in BotController');
-        Log::info($user);
-
         $keyboard = [[
             [
                 'text' => 'Что умеет этот бот?',
